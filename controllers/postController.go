@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"fitness-server-app/initializers"
-	"fitness-server-app/models"
+	workoutmodel "fitness-server-app/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,7 +18,7 @@ func CreateWorkoutPlan(c *gin.Context) {
 	c.Bind(&body)
 
 	//Create workoutplan
-	workoutplan := models.WorkoutPlan{Title: body.Title, Content: body.Content, Exercices: body.Exercices}
+	workoutplan := workoutmodel.WorkoutPlan{Title: body.Title, Content: body.Content, Exercices: body.Exercices}
 
 	result := initializers.DB.Create(&workoutplan)
 
@@ -33,7 +33,7 @@ func CreateWorkoutPlan(c *gin.Context) {
 
 func GetWorkoutPlanById(c *gin.Context) {
 	//get the workoutplans
-	var workoutplans []models.WorkoutPlan
+	var workoutplans []workoutmodel.WorkoutPlan
 	initializers.DB.Find(&workoutplans)
 
 	//respond with workoutplans
@@ -47,7 +47,7 @@ func GetAllWorkoutPlans(c *gin.Context) {
 	id := c.Param("id")
 
 	//get the workoutplans
-	var workoutplan models.WorkoutPlan
+	var workoutplan workoutmodel.WorkoutPlan
 	initializers.DB.First(&workoutplan, id)
 
 	//respond with workoutplans
@@ -67,11 +67,11 @@ func UpdateWorkoutPlan(c *gin.Context) {
 
 	c.Bind(&body)
 
-	var workoutplan models.WorkoutPlan
+	var workoutplan workoutmodel.WorkoutPlan
 	initializers.DB.First(&workoutplan, id)
 
 	//update it
-	initializers.DB.Model(&workoutplan).Updates(models.WorkoutPlan{
+	initializers.DB.Model(&workoutplan).Updates(workoutmodel.WorkoutPlan{
 		Title:   body.Title,
 		Content: body.Content, Exercices: body.Exercices,
 	})
@@ -87,7 +87,7 @@ func DeleteWorkoutPlan(c *gin.Context) {
 	id := c.Param("id")
 
 	//delete the workoutplans
-	initializers.DB.Delete(&models.WorkoutPlan{}, id)
+	initializers.DB.Delete(&workoutmodel.WorkoutPlan{}, id)
 	//respond
 	c.Status(http.StatusOK)
 }

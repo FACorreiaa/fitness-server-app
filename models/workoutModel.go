@@ -1,4 +1,4 @@
-package models
+package workoutmodel
 
 import "gorm.io/gorm"
 
