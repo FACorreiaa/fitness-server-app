@@ -1,2 +1,2 @@
-#WIP GO VERSION SOON TM
+# WIP GO VERSION SOON TM
 # fitness-server-app
